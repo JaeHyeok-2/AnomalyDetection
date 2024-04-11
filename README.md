@@ -72,7 +72,6 @@ Anomalies는 highly contextual한데, 예를들어 레스토랑에서 뛰는것�
 - 결론적으로 Anomaly Detection에서는 Anomaly를 잘 탐지하는것도 중요하지만 False Positive의 양을 줄이는것이 매우 중요하다
 - Frame t번째의 video sequence에서 Pixel값 I의 Reconstruction Error는 (Input Frame, Reconstructed Frame)사이의 유클리디안 거리로 측정한다.
 
-$$e(t) = ||x_(t) - f_W{x(t))||_2$$
 
 - $f_W$ : learned weightes by the spatio-temporal model
 - 위의 연산을 통해서 나온 e(t)를 이용하여 ```Abnormality score``` $s_a(t)$를 [0,1] 사이 값으로 scaling 해서 계산.
