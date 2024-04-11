@@ -39,4 +39,21 @@ Anomalies는 highly contextual한데, 예를들어 레스토랑에서 뛰는것�
 - 해당 기법을 통해서 normal Data로만 학습을 해서 Reconstruction Error를 줄임
   - 만약 이후에 Anomaly Data가 들어온다면 Reconstruction Error가 커질것이고, 이 Reconstruction Error가 커진다면 해당 데이턴ㄴ Anomaly하다는것을 가정
 
-#### Architecture
+
+### Architecture
+<p>
+  <img src='Architecture.png' , align='left'>
+</p>
+
+- ### Input Data
+  - Each Frame들은 raw video로부터 extracted되어지고, 227 x 227 크기로 Resize
+  - Pixel value를 [0,1]로 Normalization
+  - dimensionality를 줄이기위해서 grayscale로 Convert 후 zero mean, unit variance
+  - model의 Input은 video volumn이기 때문에 비디오 전체를 넣을 수는 없으므로 skipping stride를 통해서 10개의 연속적인 프레임으로 입력을 넣는다.
+  - ex) stride-1,2,3이 가능한데 {1,2,3,4,5,6,7,8,9,10} ,{1,3,5,7,9,11,13...} , {1,4,7,10...}으로 이루어짐
+ 
+- ### Feature Learning
+  - ```Convolutional Spatiotemporal Autoencoder``` Architecture
+  - Spatial (Encoder,Decoder) : 2-Convolutional, Deconvolutional layers
+  - Temporal Encoder : 3-layers convolutional LSTM model
+  - 
