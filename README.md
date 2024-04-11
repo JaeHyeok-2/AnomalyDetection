@@ -37,7 +37,7 @@ Anomalies는 highly contextual한데, 예를들어 레스토랑에서 뛰는것�
 - End-to-End model로 Encoder-Decoder 구조를 이용함
   - 해당 방식은 Spatial feature extractor , temporal encoder-decoder를 포함하는데 input volume of frames의 temporal patterns을 학습할 수 있게함
 - 해당 기법을 통해서 normal Data로만 학습을 해서 Reconstruction Error를 줄임
-  - 만약 이후에 Anomaly Data가 들어온다면 Reconstruction Error가 커질것이고, 이 Reconstruction Error가 커진다면 해당 데이턴ㄴ Anomaly하다는것을 가정
+  - 만약 이후에 Anomaly Data가 들어온다면 Reconstruction Error가 커질것이고, 이 Reconstruction Error가 커진다면 해당 데이터는 Anomaly하다는것을 가정
 
 
 ### Architecture
@@ -56,4 +56,27 @@ Anomalies는 highly contextual한데, 예를들어 레스토랑에서 뛰는것�
   - ```Convolutional Spatiotemporal Autoencoder``` Architecture
   - Spatial (Encoder,Decoder) : 2-Convolutional, Deconvolutional layers
   - Temporal Encoder : 3-layers convolutional LSTM model
-  - 
+
+<p>
+  <img src='Temporal.png', align='center'>
+</p>
+
+
+- 각각의 Temporal Encoder, Decoder는 다음과 같이 3개의 ConvLSTM 구조를 이루고 있음
+
+
+
+### Regularity Score (Metric)
+
+- 해당 논문의 저자는 모델의 성능을 평가하기 위해서 ```Regularity Score```
+- 결론적으로 Anomaly Detection에서는 Anomaly를 잘 탐지하는것도 중요하지만 False Positive의 양을 줄이는것이 매우 중요하다
+- Frame t번째의 video sequence에서 Pixel값 I의 Reconstruction Error는 (Input Frame, Reconstructed Frame)사이의 유클리디안 거리로 측정한다.
+
+$$e(t) = ||x_(t) - f_W{x(t))||_2$$
+
+- $f_W$ : learned weightes by the spatio-temporal model
+- 위의 연산을 통해서 나온 e(t)를 이용하여 ```Abnormality score``` $s_a(t)$를 [0,1] 사이 값으로 scaling 해서 계산.
+$$e(t) = \|x_{(t)} - f_W(x(t))\|_2$$
+  
+
+$$s_r(t) = 1 - s_a(t)$$
