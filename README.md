@@ -80,3 +80,9 @@ $$e(t) = \|x_{(t)} - f_W(x(t))\|_2$$
   
 
 $$s_r(t) = 1 - s_a(t)$$
+
+### Results(AUC_EER)
+- Higher AUC, Lower EER
+<p>
+  <img src='AUC_EER.png', align='center'>
+</p>
